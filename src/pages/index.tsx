@@ -1,21 +1,40 @@
-import Head from "next/head";
-import Image from "next/image";
+import axios from "axios";
+
+import { ChangeEvent, useState } from "react";
 import styles from "../styles/home.module.scss";
 
 export default function Home() {
+  const [dataInput, setDataInput] = useState("");
+
+  function handleSearchPokemon() {
+    axios.get("/api/pokemonApi", dataInput);
+  }
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setDataInput(e.currentTarget.value);
+  }
+
   return (
     <>
       <header className={styles.header}>
         <h1>Pokedex</h1>
       </header>
       <main className={styles.main}>
-        <div>
-          <h2>Digite seu Pokemom</h2>
-          <input type='text' />
+        <div className={styles.choosePokemonContainer}>
+          <h2>Escolha seu Pokemom</h2>
+
+          <div className={styles.inputContainer}>
+            <input
+              value={dataInput}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              type='text'
+            />
+            <button onClick={handleSearchPokemon}>Enviar</button>
+          </div>
         </div>
-        <ul>
-          <li></li>
-        </ul>
+        <ul></ul>
       </main>
       <footer></footer>
     </>

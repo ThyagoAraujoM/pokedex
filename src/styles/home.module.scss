@@ -9,4 +9,44 @@
 }
 
 .main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 2rem 0;
+
+  .choosePokemonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    h2 {
+      font-size: 3em;
+    }
+    .inputContainer {
+      display: flex;
+      justify-content: center;
+
+      input {
+        width: 12em;
+        height: 2em;
+        padding: 0.5em;
+        color: #000;
+        font-weight: bold;
+        background: var(--pink-200);
+        border: 0;
+        border-radius: 0.7em 0 0 0.7em;
+      }
+
+      button {
+        width: 4em;
+        height: 2em;
+        border: none;
+        border-radius: 0 0.7em 0.7em 0;
+        background: var(--pink-800);
+        border: 2px var(--pink-800) solid;
+        font-weight: 800;
+        color: white;
+      }
+    }
+  }
 }
