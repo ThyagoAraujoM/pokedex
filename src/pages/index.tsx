@@ -8,7 +8,7 @@ export default function Home() {
 
   async function handleSearchPokemon() {
     let response = await axios.get(`/api/pokemonApi?pokemon=${dataInput}`);
-    console.log(response);
+    
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
