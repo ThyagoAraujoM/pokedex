@@ -49,4 +49,41 @@
       }
     }
   }
+
+  .listOfPokemons {
+    margin-top: 3rem;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(200px, 260px));
+    gap: 20px;
+    list-style: none;
+  }
+
+  .pokemonCard {
+    background: #a8a8b3;
+    display: flex;
+    flex-direction: column;
+
+    img {
+      width: 100%;
+    }
+    .pokemonInfoContainer {
+      padding: 0 15px 15px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pokemonName {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .typesContainer {
+    }
+    p.electric {
+      background: rgb(0, 0, 0);
+      color: rgb(0, 0, 0);
+    }
+  }
 }
