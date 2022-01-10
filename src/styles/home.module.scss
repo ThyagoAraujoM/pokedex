@@ -60,30 +60,56 @@
   }
 
   .pokemonCard {
-    background: #a8a8b3;
+    background: var(--white);
     display: flex;
     flex-direction: column;
+    border-radius: 0.5rem;
+    max-height: 300px;
 
     img {
       width: 100%;
+      min-height: 210px;
+      background: var(--gray-50);
+      border-radius: 0.5rem 0.5rem 0 0;
     }
     .pokemonInfoContainer {
       padding: 0 15px 15px 15px;
       display: flex;
       flex-direction: column;
       gap: 20px;
+      text-transform: capitalize;
+      font-weight: bold;
     }
 
     .pokemonName {
       font-size: 1.5em;
-      font-weight: bold;
     }
 
     .typesContainer {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(70px, 80px);
+      text-align: center;
+      gap: 10px;
     }
-    p.electric {
-      background: rgb(0, 0, 0);
-      color: rgb(0, 0, 0);
+
+    .typesContainer .type {
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      width: 100%;
+      padding: 0.3rem;
+    }
+    .electric {
+      background: rgba(255, 255, 0, 0.301);
+    }
+    .electric {
+      background: rgba(255, 255, 0, 0.301);
+    }
+    .electric {
+      background: rgba(255, 255, 0, 0.301);
+    }
+    .electric {
+      background: rgba(255, 255, 0, 0.301);
     }
   }
 }
