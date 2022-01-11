@@ -100,16 +100,32 @@
       padding: 0.3rem;
     }
     .electric {
-      background: rgba(255, 255, 0, 0.301);
+      background: rgba(255, 255, 0, 0.753);
     }
-    .electric {
-      background: rgba(255, 255, 0, 0.301);
+    .grass {
+      background: rgba(20, 230, 114, 0.753);
     }
-    .electric {
-      background: rgba(255, 255, 0, 0.301);
+    .poison {
+      background: rgba(158, 14, 187, 0.753);
+      color: white;
     }
-    .electric {
-      background: rgba(255, 255, 0, 0.301);
+    .fire {
+      background: rgba(241, 119, 5, 0.753);
+    }
+    .flying {
+      background: linear-gradient(rgb(1, 255, 255) 50%, rgb(109, 109, 109) 50%);
+    }
+    .water {
+      background: rgba(5, 241, 241, 0.753);
+    }
+    .bug {
+      background: rgba(50, 136, 38, 0.753);
+    }
+    .normal {
+      background: rgba(134, 139, 133, 0.753);
+    }
+    .groud {
+      background: linear-gradient(rgb(1, 255, 255) 50%, rgb(109, 109, 109) 50%);
     }
   }
 }

@@ -60,6 +60,9 @@ export default function PokemonContextProvider({
   );
 
   const getAllPokemons = async () => {
+    if (allPokemons.length <= 1) {
+      setAllPokemons([]);
+    }
     const res = await axios.get(loadMore);
     const data = res.data;
 
@@ -71,7 +74,6 @@ export default function PokemonContextProvider({
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
         );
         const data = res.data;
-        console.log(data);
         setAllPokemons((currentList) => [
           ...currentList,
           {
@@ -85,19 +87,34 @@ export default function PokemonContextProvider({
             },
           },
         ]);
+        allPokemons.sort((a, b) => a.id - b.id);
       });
     }
 
     createPokemonObject(data.results);
   };
 
-  async function loadOnePokemon(data) {
+  async function loadOnePokemon(pokemonId: string) {
     try {
-      data.toLowerCase();
-      let response = await axios.get(`/api/searchPokemon?pokemon=${data}`);
-      setAllPokemons([response.data]);
+      pokemonId = pokemonId.toLowerCase();
+
+      let response = await axios.get(`/api/searchPokemon?pokemon=${pokemonId}`);
+      let data = response.data;
+      setAllPokemons([
+        {
+          ...data,
+          sprites: {
+            ...data.sprites,
+            other: {
+              ...data.sprites.other,
+              officialArtwork: data.sprites.other["official-artwork"],
+            },
+          },
+        },
+      ]);
+      setLoadMore("https://pokeapi.co/api/v2/pokemon?limit=20");
     } catch (error) {
-      console.log(error);
+      alert("Nome Inválido");
     }
   }
   useEffect(() => {
