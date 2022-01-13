@@ -41,10 +41,14 @@ export function PokemonLisItem({ name, sprites, types }: PokemonListProps) {
         <p className={styles.pokemonName}>{name}</p>
         <div className={styles.typesContainer}>
           {types.map((type, index) => {
+            const background: React.CSSProperties = {
+              background: `var(--${type.type.name})`,
+            };
             return (
               <p
                 key={index}
-                className={`${styles[type.type.name]} ${styles.type}`}>
+                className={`${styles[type.type.name]} ${styles.type}`}
+                style={background}>
                 {type.type.name}
               </p>
             );
