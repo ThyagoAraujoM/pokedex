@@ -67,11 +67,19 @@
     max-height: 300px;
 
     img {
+      opacity: 1;
       width: 100%;
       min-height: 210px;
-      background: var(--gray-50);
       border-radius: 0.5rem 0.5rem 0 0;
+      position: relative;
     }
+
+    img::after {
+      content: "";
+      width: 100%;
+      height: 100%;
+    }
+
     .pokemonInfoContainer {
       padding: 0 15px 15px 15px;
       display: flex;
@@ -98,63 +106,6 @@
       border-radius: 0.5rem;
       width: 100%;
       padding: 0.3rem;
-    }
-
-    .bug {
-      background: var(--bug);
-    }
-    .dragon {
-      background: var(--dragons);
-    }
-    .fairy {
-      background: var(--fairy);
-    }
-    .fire {
-      background: var(--fire);
-    }
-    .ghost {
-      background: var(--fire);
-    }
-    .groud {
-      background: var(--ground);
-    }
-    .normal {
-      background: var(--normal);
-    }
-    .psychic {
-      background: var(--psychic);
-    }
-    .steel {
-      background: var(--steel);
-    }
-    .dark {
-      background: var(--dark);
-    }
-    .electric {
-      background: var(--eletric);
-    }
-    .fighting {
-      background: var(--fighting);
-    }
-    .flying {
-      background: var(--flying);
-    }
-    .grass {
-      background: var(--grass);
-    }
-    .ice {
-      background: var(--ice);
-      color: white;
-    }
-    .poison {
-      background: var(--poison);
-      color: white;
-    }
-    .rock {
-      background: var(--rock);
-    }
-    .water {
-      background: var(--water);
     }
   }
 }

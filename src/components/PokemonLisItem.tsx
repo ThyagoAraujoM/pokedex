@@ -34,6 +34,10 @@ type PokemonListProps = {
 };
 
 export function PokemonLisItem({ name, sprites, types }: PokemonListProps) {
+  const background: React.CSSProperties = {
+    background: `var(--${types[0].type.name})`,
+  };
+  console.log(background);
   return (
     <li className={styles.pokemonCard}>
       <img src={sprites.other.officialArtwork.front_default} alt={name} />
@@ -45,10 +49,7 @@ export function PokemonLisItem({ name, sprites, types }: PokemonListProps) {
               background: `var(--${type.type.name})`,
             };
             return (
-              <p
-                key={index}
-                className={`${styles[type.type.name]} ${styles.type}`}
-                style={background}>
+              <p key={index} className={`${styles.type}`} style={background}>
                 {type.type.name}
               </p>
             );
