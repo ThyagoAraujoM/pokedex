@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import styles from "../styles/home.module.scss";
+import { lighten, modularScale, opacify } from "polished";
 
 type typeProps = {
   type: {
@@ -37,10 +38,13 @@ export function PokemonLisItem({ name, sprites, types }: PokemonListProps) {
   const background: React.CSSProperties = {
     background: `var(--${types[0].type.name})`,
   };
-  console.log(background);
+
   return (
     <li className={styles.pokemonCard}>
-      <img src={sprites.other.officialArtwork.front_default} alt={name} />
+      <div className={styles.pokemonImgContainer}>
+        <div style={background} className={styles.imgBackground}></div>
+        <img src={sprites.other.officialArtwork.front_default} alt={name} />
+      </div>
       <div className={styles.pokemonInfoContainer}>
         <p className={styles.pokemonName}>{name}</p>
         <div className={styles.typesContainer}>
