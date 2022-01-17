@@ -11,13 +11,14 @@ export default function Home() {
       <header className={styles.header}>
         <h1>Pokedex</h1>
       </header>
-      <main className={styles.main}>
+      <main id='yourAppElement' className={styles.main}>
         <SearchPokemon />
         <ListOfPokemons />
         <button
           onClick={() => {
             getAllPokemons();
-          }}>
+          }}
+          className={styles.loadMoreButton}>
           Load More
         </button>
       </main>

@@ -2,6 +2,7 @@
 import React from "react";
 import styles from "../styles/home.module.scss";
 import { lighten, modularScale, opacify } from "polished";
+import Link from "next/link";
 
 type typeProps = {
   type: {
@@ -41,10 +42,12 @@ export function PokemonLisItem({ name, sprites, types }: PokemonListProps) {
 
   return (
     <li className={styles.pokemonCard}>
-      <div className={styles.pokemonImgContainer}>
-        <div style={background} className={styles.imgBackground}></div>
-        <img src={sprites.other.officialArtwork.front_default} alt={name} />
-      </div>
+      <Link href={`/pokemon/${name}`}>
+        <div className={styles.pokemonImgContainer}>
+          <div style={background} className={styles.imgBackground}></div>
+          <img src={sprites.other.officialArtwork.front_default} alt={name} />
+        </div>
+      </Link>
       <div className={styles.pokemonInfoContainer}>
         <p className={styles.pokemonName}>{name}</p>
         <div className={styles.typesContainer}>
