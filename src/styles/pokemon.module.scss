@@ -1,6 +1,15 @@
 .header {
   display: grid;
   color: white;
+  padding: 10px 10px;
+
+  grid:
+    "prev-button next-button"
+    "pokemon-name pokemon-name"/ 1fr 1fr;
+  justify-content: center;
+  gap: 10px;
   .header-button {
+    border: 0;
+    height: 40px;
   }
 }
