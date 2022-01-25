@@ -80,7 +80,21 @@ export default function Pokemon() {
   //         </div>`;
   // }
 
-  function createPokemonCard(filteredPokemon) {
+  async function createPokemonCard(filteredPokemon) {
+    let Types;
+
+    // filteredPokemon.types.map(async (dataType) => {
+    //   let typesResponse = await axios.get(`/api/v2/type/${dataType.name}/ `);
+    //   console.log(typesResponse);
+    //   return `<p class="${dataType.type.name}">${dataType.type.name}</p>`;
+    // });
+
+    for (let types in filteredPokemon.types) {
+      let typesResponse = await axios.get(
+        `https://pokeapi.co/api/v2/type/${filteredPokemon.types[types].type.name}/`
+      );
+    }
+
     return ` <img src=${filteredPokemon.image} alt='' />
         <div>
           <p>
@@ -98,9 +112,7 @@ export default function Pokemon() {
         <div>
           <div>
             <h3>Type</h3>
-            ${filteredPokemon.types.map((dataType) => {
-              return `<p class="${dataType.type.name}">${dataType.type.name}</p>`;
-            })}
+         
           </div>
           <div>
             <h3>Weaknesses</h3>
@@ -150,7 +162,7 @@ export default function Pokemon() {
           Venusaur N°003
           <img src='' alt='' />
         </button>
-        <h2>{pokemon != null ? `${pokemon.name} N° ${pokemon.num}` : null}</h2>
+        {/* <h2>{pokemon != null ? `${pokemon.name} N° ${pokemon.num}` : null}</h2> */}
       </header>
       <main className={styles.main}></main>
     </>
