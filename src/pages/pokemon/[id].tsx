@@ -81,19 +81,33 @@ export default function Pokemon() {
   // }
 
   async function createPokemonCard(filteredPokemon) {
-    let Types;
+    let typeOfWeaknesses = [];
+    let typeOfResistance = [];
 
-    // filteredPokemon.types.map(async (dataType) => {
-    //   let typesResponse = await axios.get(`/api/v2/type/${dataType.name}/ `);
-    //   console.log(typesResponse);
     //   return `<p class="${dataType.type.name}">${dataType.type.name}</p>`;
-    // });
 
     for (let types in filteredPokemon.types) {
       let typesResponse = await axios.get(
         `https://pokeapi.co/api/v2/type/${filteredPokemon.types[types].type.name}/`
       );
+
+      let typeDoubleDamageFrom =
+        typesResponse.data.damage_relations.double_damage_from;
+      typeDoubleDamageFrom.forEach((type) => {
+        typeOfWeaknesses.push(type.name);
+      });
+      let typeHalfDamageFrom =
+        typesResponse.data.damage_relations.half_damage_from;
+      typeHalfDamageFrom.forEach((type) => {
+        typeOfResistance.push(type.name);
+      });
     }
+
+    typeOfResistance.forEach((type) => {
+      typeOfWeaknesses = typeOfWeaknesses.filter((element) => {
+        return element != type;
+      });
+    });
 
     return ` <img src=${filteredPokemon.image} alt='' />
         <div>

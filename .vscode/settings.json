@@ -1,0 +1,5 @@
+{
+  "gitlens.showWelcomeOnInstall": false,
+  "workbench.startupEditor": "none",
+  "material-icon-theme.showWelcomeMessage": false
+}
