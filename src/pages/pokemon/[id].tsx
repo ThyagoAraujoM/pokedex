@@ -158,7 +158,7 @@ export default function Pokemon() {
 
       let cardPokemon = await createPokemonCard(filteredPokemon);
 
-      // setPokemon(cardPokemon);
+      setPokemon(cardPokemon);
     }
     if (id) {
       getPokemon();
@@ -176,7 +176,7 @@ export default function Pokemon() {
           Venusaur N°003
           <img src='' alt='' />
         </button>
-        {/* <h2>{pokemon != null ? `${pokemon.name} N° ${pokemon.num}` : null}</h2> */}
+        <h2>{pokemon != null ? `${pokemon.name} N° ${pokemon.num}` : null}</h2>
       </header>
       <main className={styles.main}></main>
     </>

@@ -1,5 +1,6 @@
 {
   "gitlens.showWelcomeOnInstall": false,
   "workbench.startupEditor": "none",
-  "material-icon-theme.showWelcomeMessage": false
+  "material-icon-theme.showWelcomeMessage": false,
+  "cSpell.language": "en"
 }
