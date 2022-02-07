@@ -1,3 +1,4 @@
+import Head from "next/head";
 import ListOfPokemons from "../components/ListOfPokemons";
 import SearchPokemon from "../components/SearchPokemon";
 import usePokemon from "../hooks/usePokemon";
@@ -8,6 +9,9 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Pokedex</title>
+      </Head>
       <header className={styles.header}>
         <h1>Pokedex</h1>
       </header>

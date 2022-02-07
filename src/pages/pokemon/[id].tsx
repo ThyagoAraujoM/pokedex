@@ -3,17 +3,24 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
 import styles from "../../styles/pokemon.module.scss";
-
+import { PokemonCard } from "../../components/PokemonCard";
+import Head from "next/head";
+type abilityProps = {
+  name: string;
+  url: string;
+};
 type PokemonData = {
   name: string;
   num: (num: string) => string;
   image: string;
   characteristics: {
-    height: string;
+    height: number;
     weight: string;
-    abilities: string;
+    // abilities: abilityProps[];
+    gender: string;
   };
-  types: { string };
+  types: [{ name: string }];
+  typesOfWeakness: string[];
 };
 
 export default function Pokemon() {
@@ -33,62 +40,13 @@ export default function Pokemon() {
     }
   }
 
-  // async function getEvolutions(pokemon) {
-  //   let response = await axios.get(
-  //     `https://pokeapi.co/api/v2/evolution-chain/${pokemon.id}/`
-  //   );
-  //   let pokemonsData = response.data.chain;
-  //   let processedPokemon = "";
-  //   let actualEnvolvePhase = pokemonsData;
-
-  //   for (let i = 0; i < 2; i++) {
-  //     i -= 1;
-  //     if (processedPokemon != "") {
-  //       actualEnvolvePhase = actualEnvolvePhase.evolves_to;
-  //     }
-
-  //     let typesResponse = await axios.get(
-  //       `https://pokeapi.co/api/v2/type/${pokemon.id}/`
-  //     );
-  //     let typesData = typesResponse.data;
-  //     console.log(actualEnvolvePhase);
-  //     processedPokemon += `
-  //           <div>
-  //             <img src='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${
-  //               actualEnvolvePhase.id
-  //             }.png' alt='' />
-  //             <p>
-  //               ${actualEnvolvePhase.species.name} <span> Nº ${processNum(
-  //       actualEnvolvePhase.id
-  //     )}</span>
-  //             </p>
-
-  //             <div>
-
-  //           </div>`;
-  //     // ${typesData.name.map((type) => {
-  //     //   return `<p>${type}</p>`;
-  //     // })}
-  //   }
-
-  //   return `
-  //         <div>
-  //           <h2>Evoluções</h2>
-  //           ${processNum}
-  //           </div>
-
-  //         </div>`;
-  // }
-
-  async function createPokemonCard(filteredPokemon) {
+  async function getTypeWeakness(filteredPokemontypes) {
     let typeOfWeaknesses = [];
     let typeOfResistance = [];
 
-    //   return `<p class="${dataType.type.name}">${dataType.type.name}</p>`;
-
-    for (let types in filteredPokemon.types) {
+    for (let types in filteredPokemontypes) {
       let typesResponse = await axios.get(
-        `https://pokeapi.co/api/v2/type/${filteredPokemon.types[types].type.name}/`
+        `https://pokeapi.co/api/v2/type/${filteredPokemontypes[types].type.name}/`
       );
 
       let typeDoubleDamageFrom =
@@ -109,39 +67,27 @@ export default function Pokemon() {
       });
     });
 
-    return ` <img src=${filteredPokemon.image} alt='' />
-        <div>
-          <p>
-            Height <span>${filteredPokemon.characteristics.height}m</span>{" "}
-          </p>
-          <p>
-            Weight <span>${filteredPokemon.characteristics.weight}kg</span>{" "}
-          </p>
-          <p>
-          ${filteredPokemon.characteristics.abilities.map((abilityData) => {
-            return `Abilities <span>${abilityData.ability.name}</span>`;
-          })}
-          </p>
-        </div>
-        <div>
-          <div>
-            <h3>Type</h3>
-         
-          </div>
-          <div>
-            <h3>Weaknesses</h3>
-            ${filteredPokemon.types.map((typeInfo) => {})}
-          </div>
-        </div>
-        
-        </div>
-    `;
+    return typeOfWeaknesses;
+  }
+
+  async function getGender(pokemonId: number) {
+    let genderResponse = await axios.get(
+      `https://pokeapi.co/api/v2/gender/${pokemonId}`
+    );
+
+    return genderResponse.data.name;
   }
 
   useEffect(() => {
     async function getPokemon() {
       let response = await axios.get(`/api/searchPokemon?pokemon=${id}`);
       let data = response.data;
+      // let abilities = [];
+      // for (let i = 0; i < data.abilities.length; i++) {
+      //   if (!data.abilities[i].is_hidden) {
+      //     abilities.push(data.abilities[i]);
+      //   }
+      // }
 
       let filteredPokemon = {
         id: data.id,
@@ -149,16 +95,18 @@ export default function Pokemon() {
         num: processNum(data.order),
         image: data.sprites.other.dream_world.front_default,
         characteristics: {
-          height: data.height,
+          height: Number(data.height) * 0.1,
           weight: data.weight,
-          abilities: data.abilities,
+          // abilities: abilities,
+          gender: await getGender(data.id),
         },
-        types: data.types,
+        types: data.types.map((dataType) => {
+          return { name: dataType.type.name };
+        }),
+        typesOfWeakness: await getTypeWeakness(data.types),
       };
 
-      let cardPokemon = await createPokemonCard(filteredPokemon);
-
-      setPokemon(cardPokemon);
+      setPokemon(filteredPokemon);
     }
     if (id) {
       getPokemon();
@@ -167,6 +115,14 @@ export default function Pokemon() {
 
   return (
     <>
+      <Head>
+        <title>
+          Pokemon Info{" "}
+          {pokemon != null
+            ? pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+            : null}{" "}
+        </title>
+      </Head>
       <header className={styles.header}>
         <button className={styles["header-button"]}>
           <img src='' alt='' />
@@ -176,9 +132,10 @@ export default function Pokemon() {
           Venusaur N°003
           <img src='' alt='' />
         </button>
-        <h2>{pokemon != null ? `${pokemon.name} N° ${pokemon.num}` : null}</h2>
       </header>
-      <main className={styles.main}></main>
+      <main className={styles.main}>
+        {pokemon != null ? <PokemonCard pokemonData={pokemon} /> : null}
+      </main>
     </>
   );
 }

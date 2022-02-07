@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Roboto, sans-serif;
 }
 
 :root {
@@ -39,6 +40,8 @@
   --poison: #b97fc9;
   --rock: #a38c21;
   --water: #4592c4;
+
+  --table-info: #30a7d7;
 }
 
 @media (max-width: 1080px) {
