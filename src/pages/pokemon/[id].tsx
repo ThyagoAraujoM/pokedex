@@ -7,7 +7,7 @@ import { PokemonCard } from "../../components/PokemonCard";
 import Head from "next/head";
 type abilityProps = {
   name: string;
-  url: string;
+  description: string;
 };
 type PokemonData = {
   name: string;
@@ -15,8 +15,8 @@ type PokemonData = {
   image: string;
   characteristics: {
     height: number;
-    weight: string;
-    // abilities: abilityProps[];
+    weight: number;
+    abilities: abilityProps[];
     gender: string;
   };
   types: [{ name: string }];
@@ -82,12 +82,20 @@ export default function Pokemon() {
     async function getPokemon() {
       let response = await axios.get(`/api/searchPokemon?pokemon=${id}`);
       let data = response.data;
-      // let abilities = [];
-      // for (let i = 0; i < data.abilities.length; i++) {
-      //   if (!data.abilities[i].is_hidden) {
-      //     abilities.push(data.abilities[i]);
-      //   }
-      // }
+      let abilities = [];
+      for (let i = 0; i < data.abilities.length; i++) {
+        if (!data.abilities[i].is_hidden) {
+          let descriptionAbilityResponse = await axios.get(
+            `${data.abilities[i].ability.url}`
+          );
+          let description =
+            descriptionAbilityResponse.data.effect_entries[0].effect;
+          abilities.push({
+            name: data.abilities[i].ability.name,
+            description: description,
+          });
+        }
+      }
 
       let filteredPokemon = {
         id: data.id,
@@ -96,8 +104,8 @@ export default function Pokemon() {
         image: data.sprites.other.dream_world.front_default,
         characteristics: {
           height: Number(data.height) * 0.1,
-          weight: data.weight,
-          // abilities: abilities,
+          weight: Number(data.weight) * 0.1,
+          abilities: abilities,
           gender: await getGender(data.id),
         },
         types: data.types.map((dataType) => {
@@ -105,7 +113,7 @@ export default function Pokemon() {
         }),
         typesOfWeakness: await getTypeWeakness(data.types),
       };
-
+      console.log(filteredPokemon);
       setPokemon(filteredPokemon);
     }
     if (id) {

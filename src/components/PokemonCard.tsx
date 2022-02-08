@@ -3,7 +3,7 @@ import styles from "../styles/pokemon.module.scss";
 
 type abilityProps = {
   name: string;
-  url: string;
+  description: string;
 };
 
 type PokemonCardProps = {
@@ -13,8 +13,8 @@ type PokemonCardProps = {
     image: string;
     characteristics: {
       height: number;
-      weight: string;
-      // abilities: abilityProps[];
+      weight: number;
+      abilities: abilityProps[];
       gender: string;
     };
     types: [{ name: string }];
@@ -23,6 +23,8 @@ type PokemonCardProps = {
 };
 
 export function PokemonCard({ pokemonData }: PokemonCardProps) {
+  function showMoreAboutAbility(name: string) {}
+
   return (
     <div className={styles.pokemonInfoContainer}>
       <img className={styles.pokemonImage} src={pokemonData.image} alt='' />
@@ -38,10 +40,34 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
         </p>
         <p>
           Abilities:
-          {/* {pokemonData.characteristics.abilities.map((value, index) => {
-            return <span key={index}>{value.name}</span>;
-          })} */}
+          {pokemonData.characteristics.abilities.map((value, index) => {
+            return (
+              <span key={index}>
+                {value.name}
+                <button
+                  className={styles.showMoreAboutAbilityButton}
+                  onClick={() => {
+                    showMoreAboutAbility(value.name);
+                  }}>
+                  ?
+                </button>
+              </span>
+            );
+          })}
         </p>
+        {pokemonData.characteristics.abilities.map((value, index) => {
+          return (
+            <div
+              key={index}
+              className={styles.abilityDescription}
+              id={value.name}>
+              <p>Ability info</p>
+              <button>X Close</button>
+              <h4>{value.name}</h4>
+              <p>{value.description}</p>
+            </div>
+          );
+        })}
       </div>
       <div className={styles.pokemonTypeContainer}>
         <div>
