@@ -33,6 +33,7 @@
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  position: relative;
 
   @media (max-width: 800px) {
     grid:
@@ -47,6 +48,7 @@
     width: 100%;
   }
   .pokemonInfoTable {
+    position: relative;
     grid-area: infoTable;
     background: var(--table-info);
     padding: 20px;
@@ -66,21 +68,41 @@
     color: black;
     font-weight: 500;
   }
+
+  .abilitiesContainer span {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
   .showMoreAboutAbilityButton {
-    background: #000;
+    background: white;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 1rem;
+    padding: 0rem 0.5rem;
+  }
+
+  .abilityDescriptionContainer {
+    position: absolute;
+    height: 100%;
+    background: #313131;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  .abilityDescriptionContainer header {
+    display: flex;
+    justify-content: space-between;
   }
 
   .abilityDescription {
-    background: #000;
-    color: white;
-    display: grid;
-    grid-template:
-      "subTitle closeButton"
-      "ability ability"
-      "description description";
-  }
-
-  .pokemonTypeContainer {
-    grid-area: typeInfoContainer;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }

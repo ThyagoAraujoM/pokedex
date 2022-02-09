@@ -38,7 +38,7 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
         <p>
           Gender: <span> {pokemonData.characteristics.gender}</span>
         </p>
-        <p>
+        <p className={styles.abilitiesContainer}>
           Abilities:
           {pokemonData.characteristics.abilities.map((value, index) => {
             return (
@@ -59,12 +59,16 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
           return (
             <div
               key={index}
-              className={styles.abilityDescription}
+              className={styles.abilityDescriptionContainer}
               id={value.name}>
-              <p>Ability info</p>
-              <button>X Close</button>
-              <h4>{value.name}</h4>
-              <p>{value.description}</p>
+              <header>
+                <p>Ability info</p>
+                <button>X Close</button>
+              </header>
+              <div className={styles.abilityDescription}>
+                <h4>{value.name}</h4>
+                <p>{value.description}</p>
+              </div>
             </div>
           );
         })}
