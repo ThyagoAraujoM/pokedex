@@ -22,7 +22,7 @@
 
 .main {
   color: white;
-  padding: 50px 150px;
+  padding: 50px 16%;
 }
 
 .pokemonInfoContainer {
@@ -33,7 +33,6 @@
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  position: relative;
 
   @media (max-width: 800px) {
     grid:
@@ -47,6 +46,7 @@
     grid-area: pokemonImage;
     width: 100%;
   }
+
   .pokemonInfoTable {
     position: relative;
     grid-area: infoTable;
@@ -58,51 +58,104 @@
     display: grid;
     grid-auto-flow: row;
     grid-template-columns: repeat(2, minmax(80px, 1fr));
-  }
-  .pokemonInfoTable p {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .pokemonInfoTable span {
-    color: black;
-    font-weight: 500;
+
+    p {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    span {
+      color: var(--gray-900);
+      font-weight: 500;
+    }
+
+    .abilitiesContainer span {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .showMoreAboutAbilityButton {
+      background: white;
+      color: black;
+      font-weight: bold;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 1rem;
+      padding: 0rem 0.5rem;
+    }
+
+    .abilityDescriptionContainer {
+      display: none;
+      position: absolute;
+      height: 100%;
+      background: #313131;
+      color: white;
+      flex-direction: column;
+      gap: 20px;
+      padding: 15px 20px 20px 20px;
+      border-radius: 0.4rem;
+
+      header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      header p {
+        font-size: 0.9rem;
+        color: var(--gray-600);
+        font-weight: bold;
+      }
+      header button {
+        background: var(--gray-900);
+        color: var(--gray-white);
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: none;
+        padding: 15px 15px 10px 15px;
+        border-bottom-left-radius: 1rem;
+      }
+
+      .abilityDescription {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .abilityTitle {
+        text-transform: capitalize;
+        font-size: 1.5rem;
+        font-weight: 400;
+      }
+      .abilityDescription p {
+        font-size: 1rem;
+      }
+    }
   }
 
-  .abilitiesContainer span {
+  .pokemonType_Weakness_Container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
-  }
 
-  .showMoreAboutAbilityButton {
-    background: white;
-    color: black;
-    font-weight: bold;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 1rem;
-    padding: 0rem 0.5rem;
-  }
+    .pokemonWeakness,
+    .pokemonTypes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-  .abilityDescriptionContainer {
-    position: absolute;
-    height: 100%;
-    background: #313131;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-  }
-  .abilityDescriptionContainer header {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .abilityDescription {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    .itemsContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 135px));
+      gap: 0.8rem;
+      p {
+        padding: 5px;
+        border-radius: 0.3rem;
+        text-align: center;
+        color: var(--white);
+        text-transform: capitalize;
+      }
+    }
   }
 }

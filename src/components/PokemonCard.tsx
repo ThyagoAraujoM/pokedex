@@ -23,7 +23,12 @@ type PokemonCardProps = {
 };
 
 export function PokemonCard({ pokemonData }: PokemonCardProps) {
-  function showMoreAboutAbility(name: string) {}
+  function showMoreAboutAbility(name: string) {
+    document.querySelector<HTMLElement>(`#js-${name}`).style.display = "flex";
+  }
+  function closeAbilityDescription(name: string) {
+    document.querySelector<HTMLElement>(`#js-${name}`).style.display = "none";
+  }
 
   return (
     <div className={styles.pokemonInfoContainer}>
@@ -36,7 +41,7 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
           Weight <span>{pokemonData.characteristics.weight} kg</span>
         </p>
         <p>
-          Gender: <span> {pokemonData.characteristics.gender}</span>
+          Gender: <span> {pokemonData.characteristics.gender === "genderless" ? : }</span>
         </p>
         <p className={styles.abilitiesContainer}>
           Abilities:
@@ -60,28 +65,54 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
             <div
               key={index}
               className={styles.abilityDescriptionContainer}
-              id={value.name}>
+              id={`js-${value.name}`}>
               <header>
                 <p>Ability info</p>
-                <button>X Close</button>
+                <button
+                  onClick={() => {
+                    closeAbilityDescription(value.name);
+                  }}>
+                  X Close
+                </button>
               </header>
               <div className={styles.abilityDescription}>
-                <h4>{value.name}</h4>
+                <h3 className={styles.abilityTitle}>{value.name}</h3>
                 <p>{value.description}</p>
               </div>
             </div>
           );
         })}
       </div>
-      <div className={styles.pokemonTypeContainer}>
-        <div>
+      <div className={styles.pokemonType_Weakness_Container}>
+        <div className={styles.pokemonTypes}>
           <h3>Type</h3>
-          {pokemonData.types.map((type, index) => {
-            return <p key={index}>{type.name}</p>;
-          })}
+          <div className={styles.itemsContainer}>
+            {pokemonData.types.map((type, index) => {
+              const background: React.CSSProperties = {
+                background: `var(--${type.name})`,
+              };
+              return (
+                <p key={index} style={background}>
+                  {type.name}
+                </p>
+              );
+            })}
+          </div>
         </div>
-        <div>
+        <div className={styles.pokemonWeakness}>
           <h3>Weaknesses</h3>
+          <div className={styles.itemsContainer}>
+            {pokemonData.typesOfWeakness.map((weakness, index) => {
+              const background: React.CSSProperties = {
+                background: `var(--${weakness})`,
+              };
+              return (
+                <p key={index} style={background}>
+                  {weakness}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
