@@ -15,7 +15,7 @@ type PokemonCardProps = {
       height: number;
       weight: number;
       abilities: abilityProps[];
-      gender: string;
+      gender: string[];
     };
     types: [{ name: string }];
     typesOfWeakness: string[];
@@ -29,7 +29,9 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
   function closeAbilityDescription(name: string) {
     document.querySelector<HTMLElement>(`#js-${name}`).style.display = "none";
   }
-
+  let genderImg = () => {
+    // criar lógica imagem
+  };
   return (
     <div className={styles.pokemonInfoContainer}>
       <img className={styles.pokemonImage} src={pokemonData.image} alt='' />
@@ -41,7 +43,7 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
           Weight <span>{pokemonData.characteristics.weight} kg</span>
         </p>
         <p>
-          Gender: <span> {pokemonData.characteristics.gender === "genderless" ? : }</span>
+          Gender: <div></div>
         </p>
         <p className={styles.abilitiesContainer}>
           Abilities:

@@ -17,7 +17,7 @@ type PokemonData = {
     height: number;
     weight: number;
     abilities: abilityProps[];
-    gender: string;
+    gender: string[];
   };
   types: [{ name: string }];
   typesOfWeakness: string[];
@@ -70,12 +70,40 @@ export default function Pokemon() {
     return typeOfWeaknesses;
   }
 
-  async function getGender(pokemonId: number) {
-    let genderResponse = await axios.get(
-      `https://pokeapi.co/api/v2/gender/${pokemonId}`
+  async function getGender(pokemonName: string) {
+    let genderless = "";
+    let male = "";
+    let fem = "";
+
+    let maleResponse = await axios.get(`https://pokeapi.co/api/v2/gender/1`);
+
+    male = maleResponse.data.pokemon_species_details.fitler((data) => {
+      return data.pokemon_species.name === pokemonName;
+    });
+
+    let FeminineResponse = await axios.get(
+      `https://pokeapi.co/api/v2/gender/2`
     );
 
-    return genderResponse.data.name;
+    fem = FeminineResponse.data.pokemon_species_details.fitler((data) => {
+      return data.pokemon_species.name === pokemonName;
+    });
+
+    let genderlessResponse = await axios.get(
+      `https://pokeapi.co/api/v2/gender/3`
+    );
+    genderless = genderlessResponse.data.pokemon_species_details.fitler(
+      (data) => {
+        return data.pokemon_species.name === pokemonName;
+      }
+    );
+
+    let genders = [];
+
+    male != "" ? genders.push(male) : null;
+    fem != "" ? genders.push(fem) : null;
+    genderless != "" ? genders.push(genderless) : null;
+    return genders;
   }
 
   useEffect(() => {
