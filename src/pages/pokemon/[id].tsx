@@ -77,26 +77,30 @@ export default function Pokemon() {
 
     let maleResponse = await axios.get(`https://pokeapi.co/api/v2/gender/1`);
 
-    male = maleResponse.data.pokemon_species_details.fitler((data) => {
-      return data.pokemon_species.name === pokemonName;
+    maleResponse.data.pokemon_species_details.forEach((data) => {
+      if (data.pokemon_species.name === pokemonName) {
+        male = "male";
+      }
     });
 
     let FeminineResponse = await axios.get(
       `https://pokeapi.co/api/v2/gender/2`
     );
 
-    fem = FeminineResponse.data.pokemon_species_details.fitler((data) => {
-      return data.pokemon_species.name === pokemonName;
+    FeminineResponse.data.pokemon_species_details.forEach((data) => {
+      if (data.pokemon_species.name === pokemonName) {
+        fem = "fem";
+      }
     });
 
     let genderlessResponse = await axios.get(
       `https://pokeapi.co/api/v2/gender/3`
     );
-    genderless = genderlessResponse.data.pokemon_species_details.fitler(
-      (data) => {
-        return data.pokemon_species.name === pokemonName;
+    genderlessResponse.data.pokemon_species_details.forEach((data) => {
+      if (data.pokemon_species.name === pokemonName) {
+        genderless = "genderless";
       }
-    );
+    });
 
     let genders = [];
 
@@ -134,7 +138,7 @@ export default function Pokemon() {
           height: Number(data.height) * 0.1,
           weight: Number(data.weight) * 0.1,
           abilities: abilities,
-          gender: await getGender(data.id),
+          gender: await getGender(data.name),
         },
         types: data.types.map((dataType) => {
           return { name: dataType.type.name };

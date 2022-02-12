@@ -30,20 +30,35 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
     document.querySelector<HTMLElement>(`#js-${name}`).style.display = "none";
   }
   let genderImg = () => {
-    // criar lógica imagem
+    let imgHtml = "";
+
+    return imgHtml;
   };
   return (
     <div className={styles.pokemonInfoContainer}>
       <img className={styles.pokemonImage} src={pokemonData.image} alt='' />
       <div className={styles.pokemonInfoTable}>
         <p>
-          Height <span>{pokemonData.characteristics.height} m</span>
+          Height <span>{pokemonData.characteristics.height.toFixed(2)} m</span>
         </p>
         <p>
-          Weight <span>{pokemonData.characteristics.weight} kg</span>
+          Weight <span>{pokemonData.characteristics.weight.toFixed(2)} kg</span>
         </p>
         <p>
-          Gender: <div></div>
+          Gender:{" "}
+          <div>
+            {pokemonData.characteristics.gender.map((gender, index) => {
+              if (gender === "male") {
+                return <img key={index} src='/assets/maleIcon.svg' />;
+              }
+              if (gender === "fem") {
+                return <img key={index} src='/assets/feminineIcon.svg' />;
+              }
+              if (gender === "genderless") {
+                return <p>Genderless</p>;
+              }
+            })}
+          </div>
         </p>
         <p className={styles.abilitiesContainer}>
           Abilities:
