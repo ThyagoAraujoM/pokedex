@@ -55,7 +55,7 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
                 return <img key={index} src='/assets/feminineIcon.svg' />;
               }
               if (gender === "genderless") {
-                return <p>Genderless</p>;
+                return <p className={styles.genderless}>Genderless</p>;
               }
             })}
           </div>
