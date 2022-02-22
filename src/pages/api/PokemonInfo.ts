@@ -122,8 +122,8 @@ export default async function handler(
       num: processNum(data.order),
       image: data.sprites.other.dream_world.front_default,
       characteristics: {
-        height: Number(data.height) * 0.1,
-        weight: Number(data.weight) * 0.1,
+        height: (Number(data.height) * 0.1).toFixed(2),
+        weight: (Number(data.weight) * 0.1).toFixed(2),
         abilities: await getAbilities(data.abilities),
         gender: await getGender(data.name),
       },

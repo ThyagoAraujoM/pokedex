@@ -42,7 +42,7 @@ export function PokemonLisItem({ name, sprites, types }: PokemonListProps) {
 
   return (
     <li className={styles.pokemonCard}>
-      <Link href={`/pokemon/${name}`}>
+      <Link href={`/pokemon/${name}`} passHref>
         <div className={styles.pokemonImgContainer}>
           <div style={background} className={styles.colorBackground}></div>
           <img src={sprites.other.officialArtwork.front_default} alt={name} />

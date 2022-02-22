@@ -2,5 +2,6 @@
   "gitlens.showWelcomeOnInstall": false,
   "workbench.startupEditor": "none",
   "material-icon-theme.showWelcomeMessage": false,
-  "cSpell.language": "en"
+  "cSpell.language": "en",
+  "cSpell.words": ["Enviar", "Escolha", "Inválido"]
 }

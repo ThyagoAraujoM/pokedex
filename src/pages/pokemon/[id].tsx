@@ -54,14 +54,8 @@ export default function Pokemon() {
         </title>
       </Head>
       <header className={styles.header}>
-        <button className={styles["header-button"]}>
-          <img src='' alt='' />
-          N°001 Bulbasaur
-        </button>
-        <button className={styles["header-button"]}>
-          Venusaur N°003
-          <img src='' alt='' />
-        </button>
+        <button className={styles["header-button"]}>N°001 Bulbasaur</button>
+        <button className={styles["header-button"]}>Venusaur N°003</button>
       </header>
       <main className={styles.main}>
         {pokemon != null ? (

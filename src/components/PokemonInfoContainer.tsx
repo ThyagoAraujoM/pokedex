@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import React from "react";
 import styles from "../styles/pokemon.module.scss";
 
@@ -32,30 +34,38 @@ export function PokemonInfoContainer({
   function closeAbilityDescription(name: string) {
     document.querySelector<HTMLElement>(`#js-${name}`).style.display = "none";
   }
-  let genderImg = () => {
-    let imgHtml = "";
-    return imgHtml;
-  };
 
   return (
     <div className={styles.pokemonInfoContainer}>
-      <img className={styles.pokemonImage} src={pokemonData.image} alt='' />
+      <img
+        className={styles.pokemonImage}
+        src={pokemonData.image}
+        alt='Pokemon Image'
+      />
       <div className={styles.pokemonInfoTable}>
         <p>
-          Height <span>{pokemonData.characteristics.height.toFixed(2)} m</span>
+          Height <span>{pokemonData.characteristics.height} m</span>
         </p>
         <p>
-          Weight <span>{pokemonData.characteristics.weight.toFixed(2)} kg</span>
+          Weight <span>{pokemonData.characteristics.weight} kg</span>
         </p>
         <div>
           <p>Gender:</p>
           <div>
             {pokemonData.characteristics.gender.map((gender, index) => {
               if (gender === "male") {
-                return <img key={index} src='/assets/maleIcon.svg' />;
+                return (
+                  <img key={index} src='/assets/maleIcon.svg' alt='Male Icon' />
+                );
               }
               if (gender === "fem") {
-                return <img key={index} src='/assets/feminineIcon.svg' />;
+                return (
+                  <img
+                    key={index}
+                    src='/assets/feminineIcon.svg'
+                    alt='Feminine Icon'
+                  />
+                );
               }
               if (gender === "genderless") {
                 return <p className={styles.genderless}>Genderless</p>;
