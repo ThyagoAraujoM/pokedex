@@ -24,7 +24,7 @@ export default function SearchPokemon() {
   }
 
   return (
-    <div className={styles.choosePokemonContainer}>
+    <div className={styles.searchPokemonContainer}>
       <h2>Escolha seu Pokemom</h2>
 
       <div className={styles.inputContainer}>

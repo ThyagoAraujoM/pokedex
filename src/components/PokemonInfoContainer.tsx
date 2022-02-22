@@ -6,7 +6,7 @@ type abilityProps = {
   description: string;
 };
 
-type PokemonCardProps = {
+type PokemonInfoContainerProps = {
   pokemonData: {
     name: string;
     num: (num: string) => string;
@@ -22,18 +22,21 @@ type PokemonCardProps = {
   };
 };
 
-export function PokemonCard({ pokemonData }: PokemonCardProps) {
+export function PokemonInfoContainer({
+  pokemonData,
+}: PokemonInfoContainerProps) {
   function showMoreAboutAbility(name: string) {
     document.querySelector<HTMLElement>(`#js-${name}`).style.display = "flex";
   }
+
   function closeAbilityDescription(name: string) {
     document.querySelector<HTMLElement>(`#js-${name}`).style.display = "none";
   }
   let genderImg = () => {
     let imgHtml = "";
-
     return imgHtml;
   };
+
   return (
     <div className={styles.pokemonInfoContainer}>
       <img className={styles.pokemonImage} src={pokemonData.image} alt='' />
@@ -44,8 +47,8 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
         <p>
           Weight <span>{pokemonData.characteristics.weight.toFixed(2)} kg</span>
         </p>
-        <p>
-          Gender:{" "}
+        <div>
+          <p>Gender:</p>
           <div>
             {pokemonData.characteristics.gender.map((gender, index) => {
               if (gender === "male") {
@@ -59,7 +62,7 @@ export function PokemonCard({ pokemonData }: PokemonCardProps) {
               }
             })}
           </div>
-        </p>
+        </div>
         <p className={styles.abilitiesContainer}>
           Abilities:
           {pokemonData.characteristics.abilities.map((value, index) => {

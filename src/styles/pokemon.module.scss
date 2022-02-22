@@ -22,10 +22,12 @@
 
 .main {
   color: white;
+
   padding: 50px 16%;
 }
 
 .pokemonInfoContainer {
+  background-color: var(--gray-500);
   display: grid;
   grid:
     "pokemonImage infoTable"

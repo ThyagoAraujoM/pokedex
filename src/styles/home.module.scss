@@ -16,7 +16,7 @@
   margin: 2rem 0;
   gap: 50px;
 
-  .choosePokemonContainer {
+  .searchPokemonContainer {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -72,7 +72,7 @@
       min-height: 210px;
       border-radius: 0.5rem 0.5rem 0 0;
 
-      .imgBackground {
+      .colorBackground {
         border-radius: 0.5rem 0.5rem 0 0;
         position: absolute;
         top: 0;
@@ -107,13 +107,12 @@
       grid-auto-columns: minmax(70px, 80px);
       text-align: center;
       gap: 10px;
-    }
-
-    .typesContainer .type {
-      font-size: 1rem;
-      border-radius: 0.5rem;
-      width: 100%;
-      padding: 0.3rem;
+      .type {
+        font-size: 1rem;
+        border-radius: 0.5rem;
+        width: 100%;
+        padding: 0.3rem;
+      }
     }
   }
 

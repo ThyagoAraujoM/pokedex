@@ -58,8 +58,6 @@ export default function PokemonContextProvider({
   const [loadMore, setLoadMore] = useState(
     "https://pokeapi.co/api/v2/pokemon?limit=20"
   );
-  const [selectPokemon, setSelectPokemon] = useState([]);
-  const [modalIsOpen, setIsOpen] = useState(false);
 
   const getAllPokemons = async () => {
     if (allPokemons.length <= 1) {
