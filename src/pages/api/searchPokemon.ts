@@ -5,8 +5,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  let response = await axios.get(
+  let { data } = await axios.get(
     `https://pokeapi.co/api/v2/pokemon/${req.query.pokemon}`
   );
-  res.send(response.data);
+  let pokemonRequestData = data;
+
+  let filteredPokemonData = {
+    id: pokemonRequestData.id,
+    name: pokemonRequestData.name,
+    sprite: pokemonRequestData.sprites.other["official-artwork"].front_default,
+    types: pokemonRequestData.types.map((typeContainer) => typeContainer.type),
+  };
+
+  res.send(filteredPokemonData);
 }

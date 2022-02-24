@@ -12,7 +12,7 @@ export default function ListOfPokemons() {
         return (
           <PokemonLisItem
             name={pokemon.name}
-            sprites={pokemon.sprites}
+            sprite={pokemon.sprite}
             types={pokemon.types}
             key={index}
           />

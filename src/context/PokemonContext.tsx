@@ -13,27 +13,9 @@ type PokemonContextProviderProps = {
 };
 
 type AllPokemons = {
+  id: string;
   name: string;
-  sprites: {
-    back_default?: string;
-    back_female?: string;
-    back_shiny?: string;
-    back_shiny_female?: string;
-    front_default?: string;
-    front_female?: string;
-    front_shiny?: string;
-    front_shiny_female?: string;
-    other: {
-      dream_world: { front_default: string; front_female: string };
-      home: {
-        front_default: string;
-        front_female: string;
-        front_shiny: string;
-        front_shiny_female: string;
-      };
-      officialArtwork?: { front_default: string };
-    };
-  };
+  sprite: string;
   types: [
     {
       type: {
@@ -63,35 +45,29 @@ export default function PokemonContextProvider({
     if (allPokemons.length <= 1) {
       setAllPokemons([]);
     }
-    const res = await axios.get(loadMore);
-    const data = res.data;
+    let postData = { loadMoreUrl: loadMore };
+    let pokemonUrlData = await axios.post(`/api/loadPokemonsUrl`, postData);
+    let pokemonsUrl = pokemonUrlData.data.arrayOfPokemonsUrl;
+    setLoadMore(pokemonUrlData.data.nextLoadMoreUrl);
+    let newPokemons = await axios.post(`/api/loadPokemonsData`, pokemonsUrl);
+    console.log(newPokemons.data);
+    // const { data } = await axios.get(loadMore);
+    // setLoadMore(data.next);
 
-    setLoadMore(data.next);
+    // async function createPokemonObject(results) {
+    //   results.forEach(async (pokemon) => {
+    //     const newPokemonRespose = await axios.get<AllPokemons>(
+    //       `/api/searchPokemon?pokemon=${pokemon.name}`
+    //     );
 
-    async function createPokemonObject(results) {
-      results.forEach(async (pokemon) => {
-        const res = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
-        );
-        const data = res.data;
-        setAllPokemons((currentList) => [
-          ...currentList,
-          {
-            ...data,
-            sprites: {
-              ...data.sprites,
-              other: {
-                ...data.sprites.other,
-                officialArtwork: data.sprites.other["official-artwork"],
-              },
-            },
-          },
-        ]);
-        allPokemons.sort((a, b) => a.id - b.id);
-      });
-    }
+    //     let newPokemonData = newPokemonRespose.data;
 
-    createPokemonObject(data.results);
+    //     setAllPokemons((currentList) => [...currentList, newPokemonData]);
+    //     // allPokemons.sort((a, b) => a.id - b.id);
+    //   });
+    // }
+
+    // createPokemonObject(data.results);
   };
 
   async function loadOnePokemon(pokemonId: string) {
@@ -99,19 +75,10 @@ export default function PokemonContextProvider({
       pokemonId = pokemonId.toLowerCase();
 
       let response = await axios.get(`/api/searchPokemon?pokemon=${pokemonId}`);
+
       let data = response.data;
-      setAllPokemons([
-        {
-          ...data,
-          sprites: {
-            ...data.sprites,
-            other: {
-              ...data.sprites.other,
-              officialArtwork: data.sprites.other["official-artwork"],
-            },
-          },
-        },
-      ]);
+
+      setAllPokemons(data);
       setLoadMore("https://pokeapi.co/api/v2/pokemon?limit=20");
     } catch (error) {
       alert("Nome Inválido");
@@ -122,9 +89,11 @@ export default function PokemonContextProvider({
     getAllPokemons();
   }, []);
 
+  // modificar
   useEffect(() => {
     allPokemons.sort((a, b) => a.id - b.id);
   }, [allPokemons]);
+
   return (
     <PokemonContext.Provider
       value={{
