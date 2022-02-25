@@ -12,17 +12,16 @@ type PokemonContextProviderProps = {
   children: ReactNode;
 };
 
+type typesProps = {
+  name: string;
+  url: string;
+};
+
 type AllPokemons = {
   id: string;
   name: string;
   sprite: string;
-  types: [
-    {
-      type: {
-        name: string;
-      };
-    }
-  ];
+  types: typesProps[];
 };
 
 type PokemonContextProps = {
@@ -45,12 +44,21 @@ export default function PokemonContextProvider({
     if (allPokemons.length <= 1) {
       setAllPokemons([]);
     }
-    let postData = { loadMoreUrl: loadMore };
-    let pokemonUrlData = await axios.post(`/api/loadPokemonsUrl`, postData);
-    let pokemonsUrl = pokemonUrlData.data.arrayOfPokemonsUrl;
-    setLoadMore(pokemonUrlData.data.nextLoadMoreUrl);
-    let newPokemons = await axios.post(`/api/loadPokemonsData`, pokemonsUrl);
-    console.log(newPokemons.data);
+    let postData = { urlLoadMore: loadMore };
+    let pokemonsData = await axios.post(`/api/loadPokemons`, postData);
+    setAllPokemons((currentList) => [
+      ...currentList,
+      pokemonsData.data.newPokemons,
+    ]);
+    setLoadMore(pokemonsData.data.nextLoadMoreUrl);
+    console.log(pokemonsData.data);
+    // pokemonsName.forEach(async (pokemonName) => {
+    //   let postData = { pokemonName: pokemonName };
+    //   const { data } = await axios.post(`/api/loadPokemonsData`, postData);
+    //   let pokemonRequestData = data;
+    //   newPokemons.push(pokemonRequestData);
+    // });
+
     // const { data } = await axios.get(loadMore);
     // setLoadMore(data.next);
 
