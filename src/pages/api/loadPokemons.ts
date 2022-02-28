@@ -18,8 +18,8 @@ export default async function handler(
   );
 
   let newPokemons = [];
-  for (const id of arrayOfPokemonsNames) {
-    let { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/1`);
+  for (const name of arrayOfPokemonsNames) {
+    let { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
     let pokemonRequestData = data;
 
     let filteredPokemonData = {
@@ -34,6 +34,7 @@ export default async function handler(
 
     newPokemons.push(filteredPokemonData);
   }
+  newPokemons.sort((a, b) => a.id - b.id);
 
   res.send({ newPokemons, nextLoadMoreUrl });
 }
