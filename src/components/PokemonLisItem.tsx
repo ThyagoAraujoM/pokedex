@@ -13,15 +13,33 @@ type PokemonListProps = {
   name: string;
   sprite: string;
   types: typeProps[];
+  animationValue: number;
 };
 
-export function PokemonLisItem({ name, sprite, types }: PokemonListProps) {
+export function PokemonLisItem({
+  name,
+  sprite,
+  types,
+  animationValue,
+}: PokemonListProps) {
   const background: React.CSSProperties = {
     background: `var(--${types[0].name})`,
   };
-
-  console.log(name, sprite, types);
-
+  let animationClass = "";
+  switch (animationValue) {
+    case 0:
+      animationClass = "topDropDown";
+      break;
+    case 1:
+      animationClass = "rightDropDown";
+      break;
+    case 2:
+      animationClass = "bottomDropDown";
+      break;
+    case 3:
+      animationClass = "leftDropDown";
+      break;
+  }
   return (
     <li className={styles.pokemonCard}>
       <Link href={`/pokemon/${name}`} passHref>

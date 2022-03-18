@@ -44,14 +44,41 @@ export default function PokemonContextProvider({
     if (allPokemons.length <= 1) {
       setAllPokemons([]);
     }
-    let postData = { urlLoadMore: loadMore };
-    let pokemonsData = await axios.post(`/api/loadPokemons`, postData);
 
-    setLoadMore(pokemonsData.data.nextLoadMoreUrl);
-    setAllPokemons((currentList) => [
-      ...currentList,
-      ...pokemonsData.data.newPokemons,
-    ]);
+    let pokemonNamesAndUrl = await axios.post(`/api/loadPokemonsNames`, {
+      urlLoadMore: loadMore,
+    });
+
+    const { data } = await axios.get(loadMore);
+    const nextLoadMoreUrl = data.next;
+    const arrayOfPokemonsNames: [string] = data.results.map(
+      (pokemonNameAndUrl) => pokemonNameAndUrl.name
+    );
+
+    let newPokemons = [];
+    for (const name of arrayOfPokemonsNames) {
+      let { data } = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${name}`
+      );
+      let pokemonRequestData = data;
+
+      let filteredPokemonData = {
+        id: pokemonRequestData.id,
+        name: pokemonRequestData.name,
+        sprite:
+          pokemonRequestData.sprites.other["official-artwork"].front_default,
+        types: pokemonRequestData.types.map(
+          (typeContainer) => typeContainer.type
+        ),
+      };
+
+      setAllPokemons((currentList) => [...currentList, filteredPokemonData]);
+      // newPokemons.push(filteredPokemonData);
+    }
+    newPokemons.sort((a, b) => a.id - b.id);
+
+    setLoadMore(nextLoadMoreUrl);
+    // setAllPokemons((currentList) => [...currentList, ...newPokemons]);
   };
 
   async function loadOnePokemon(pokemonName: string) {
