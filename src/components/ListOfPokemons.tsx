@@ -9,8 +9,7 @@ export default function ListOfPokemons() {
   return (
     <ul className={styles.listOfPokemons}>
       {allPokemons.map((pokemon, index) => {
-        let ActualAnimation = countDirection;
-        if ((countDirection) => 4) {
+        if (countDirection == 3) {
           countDirection = 0;
         } else {
           countDirection++;
@@ -22,7 +21,7 @@ export default function ListOfPokemons() {
             sprite={pokemon.sprite}
             types={pokemon.types}
             key={index}
-            animationValue={ActualAnimation}
+            animationValue={countDirection}
           />
         );
       })}

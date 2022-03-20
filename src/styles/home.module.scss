@@ -116,6 +116,64 @@
     }
   }
 
+  .pokemonCard.topDropDown {
+    animation: topDropDown 0.3s ease-in-out;
+  }
+
+  .pokemonCard.leftDropDown {
+    animation: topDropDown 0.3s ease-in-out;
+  }
+  .pokemonCard.bottomDropDown {
+    animation: topDropDown 0.3s ease-in-out;
+  }
+  .pokemonCard.rightDropDown {
+    animation: topDropDown 0.3s ease-in-out;
+  }
+
+  @keyframes topDropDown {
+    from {
+      margin-top: -20px;
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+      margin-top: 0;
+    }
+  }
+
+  @keyframes leftDropDown {
+    from {
+      margin-left: -20px;
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+      margin-left: 0;
+    }
+  }
+
+  @keyframes bottomDropDown {
+    from {
+      margin-bottom: -20px;
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+      margin-bottom: 0;
+    }
+  }
+
+  @keyframes rightDropDown {
+    from {
+      margin-right: -20px;
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+      margin-right: 0;
+    }
+  }
+
   .loadMoreButton {
     padding: 5px 10px;
     color: white;

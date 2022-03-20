@@ -40,8 +40,10 @@ export function PokemonLisItem({
       animationClass = "leftDropDown";
       break;
   }
+  console.log(animationValue);
+
   return (
-    <li className={styles.pokemonCard}>
+    <li className={`${styles.pokemonCard} ${styles[animationClass]} `}>
       <Link href={`/pokemon/${name}`} passHref>
         <div className={styles.pokemonImgContainer}>
           <div style={background} className={styles.colorBackground}></div>
