@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center">
-     Projeto Calcelado - Problemas com API
+     Projeto Cancelado - Problemas com API
 </h1>
 
 <br>
